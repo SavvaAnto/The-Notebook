@@ -5,7 +5,7 @@ import Achievement from './Achievement/Achievement';
 
 const Achievements = () => {
     return (
-        <div className={classes.achi}>
+        <div className={classes.achievements}>
           Achievements
           <NewAchievement />
           <Achievement />
