@@ -1,0 +1,10 @@
+.achi {
+    background-color: blueviolet;
+    float: left;
+    width: 20%;
+    border-right-style: solid;
+}
+.achi img {
+    float: left;
+    width: 35%;
+}
