@@ -22,7 +22,7 @@ export const AddAchievement = ({ onSubmit }) => {
                 value={value}
                 placeholder='Type a new achevement'
             />
-            <Button title='Add' onPress={pressHandler} />
+            <Button style={styles.button} title='Add' onPress={pressHandler} />
         </View>
     )
 }
@@ -32,13 +32,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 30
+        marginBottom: 30,
+        marginHorizontal: 10,
+        borderStyle: 'solid',
+        borderBottomWidth: 1,
+        borderBottomColor: '#3949ab',
     },
     input: {
         width: '80%',
         padding: 10,
-        borderStyle: 'solid',
-        borderBottomWidth: 1,
-        borderBottomColor: '#3949ab',
+        fontSize: 18
     },
 })

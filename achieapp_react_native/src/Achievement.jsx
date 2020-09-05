@@ -1,22 +1,28 @@
 import React from 'react'
-import {Text, View, StyleSheet, Image} from 'react-native'
+import {Text, View, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'
 
-export const Achievement = ({ achie, badge, enabled}) => {
+export const Achievement = ({ achie, badge, enabled, date, onAchieve}) => {
     return (
-        <View style={ enabled ? stylesEnabled.achie : stylesDisabled.achie}>
-            <Image
-                style={ enabled ? stylesEnabled.picture : stylesDisabled.picture }
-                source={{
-                    uri: badge,
-                }}
-            />
-            <View
-                style={ enabled ? stylesEnabled.overlay : stylesDisabled.overlay }
-            />
-            <Text style={ enabled ? stylesEnabled.title : stylesDisabled.title }>
-                    {achie.title}
-            </Text>
-        </View>
+        <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => {Alert.alert(enabled ? 'Achieved in ' + date + '!' : 'Never done yet')}}
+            onLongPress={() => onAchieve(achie.id)}
+            >
+            <View style={ enabled ? stylesEnabled.achie : stylesDisabled.achie}>
+                <Image
+                    style={ enabled ? stylesEnabled.picture : stylesDisabled.picture }
+                    source={{
+                        uri: badge,
+                    }}
+                />
+                <View
+                    style={ enabled ? stylesEnabled.overlay : stylesDisabled.overlay }
+                />
+                <Text style={ enabled ? stylesEnabled.title : stylesDisabled.title }>
+                        {achie.title}
+                </Text>
+            </View>
+        </TouchableOpacity>
     )
 }
 
@@ -29,6 +35,7 @@ const stylesEnabled = StyleSheet.create({
         borderColor: '#eee',
         borderRadius: 10,
         marginBottom: 10,
+        marginHorizontal: 10,
         backgroundColor: 'violet'
     },
     picture: {
@@ -51,6 +58,7 @@ const stylesDisabled = StyleSheet.create({
         borderColor: '#eee',
         borderRadius: 10,
         marginBottom: 10,
+        marginHorizontal: 10,
         backgroundColor: '#ccc'
     },
     picture: {

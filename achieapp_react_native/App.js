@@ -1,23 +1,15 @@
 import React, {useState} from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, FlatList, Alert } from 'react-native';
 import { Navbar } from './src/Navbar'
 import { AddAchievement } from './src/AddAchievement';
 import { Achievement } from './src/Achievement';
 
 export default function App() {
-  let [achies, setAchievements] = useState([])
-
-  var i = 0;
-  var defAchies = ['Create a mobile app', 'Wake up before 8am', 'Push up 50 times']
-
-  while (i < 3)
-  {
-    achies[i] = {
-      id: Date.now().toString() + i,
-      title: defAchies[i++],
-      enabled: 0
-    }
-  }
+  let [achies, setAchievements] = useState([
+    {id: 1, title: 'Create a mobile app', enabled: false, date: 'Never done'},
+    {id: 2, title: 'Wake up before 8am', enabled: false, date: 'Never done'},
+    {id: 3, title: 'Push up 50 times', enabled: false, date: 'Never done'},
+  ])
 
   const addAchievement = (title) => {
     setAchievements(prev => [
@@ -25,9 +17,18 @@ export default function App() {
       {
         id: Date.now().toString(),
         title,
-        enabled: 1
+        enabled: true,
+        date: 'September ' + new Date().getFullYear()
       }
     ])
+  }
+
+  const getAchievement = (id) => {
+    var achiesChanged = achies
+    achiesChanged.find(achie => achie.id === id).enabled ? achiesChanged.find(achie => achie.id === id).enabled = false : achiesChanged.find(achie => achie.id === id).enabled = true
+    achiesChanged.find(achie => achie.id === id).date = 'September ' + new Date().getFullYear()
+    setAchievements([ ...achiesChanged])
+    achiesChanged.find(achie => achie.id === id).enabled ? Alert.alert('You\'ve just got \"' + achiesChanged.find(achie => achie.id === id).title + '\" achievement!\n\nWell done!') : 1
   }
 
   return (
@@ -35,18 +36,19 @@ export default function App() {
       <Navbar title='AchieApp' />
       <View style={styles.container}>
         <AddAchievement onSubmit={addAchievement}/>
-        <ScrollView style={styles.achieList}>
-          {achies.slice(0).reverse().map(achie => {
-            return (
-              <Achievement
-                key={achie.id}
-                achie={achie}
-                badge='https://images.assetsdelivery.com/compings_v2/incomible/incomible1310/incomible131000021.jpg'
-                enabled={achie.enabled}
-              />
-            )
-          })}
-        </ScrollView>
+        <FlatList
+          keyExtractor={item => item.id.toString()}
+          style={styles.achieList}
+          data={achies.slice(0).reverse()}
+          renderItem={({ item }) => (
+            <Achievement onAchieve={getAchievement}
+              achie={item}
+              badge='https://images.assetsdelivery.com/compings_v2/incomible/incomible1310/incomible131000021.jpg'
+              enabled={item.enabled}
+              date={item.date}
+            />
+          )}
+        />
       </View>
     </View>
   );
@@ -54,11 +56,11 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 30,
+    paddingHorizontal: 20,
     paddingVertical: 20,
   },
   achieList: {
     height: '79%',
-    paddingVertical: 10
+    paddingVertical: 10,
   }
 });
