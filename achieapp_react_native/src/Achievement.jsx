@@ -1,12 +1,12 @@
 import React from 'react'
 import {Text, View, StyleSheet, ImageBackground, TouchableOpacity, Alert } from 'react-native'
 
-export const Achievement = ({ achie, onAchieve }) => {
+export const Achievement = ({packId ,achie, onAchieve }) => {
     return (
         <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => {Alert.alert(achie.enabled ? 'Achieved in ' + achie.date + '!' : 'Never done yet')}}
-            onLongPress={() => onAchieve(achie.id)}
+            onLongPress={() => onAchieve(packId , achie.id)}
         >
             <View style={ achie.enabled ? stylesEnabled.achie : stylesDisabled.achie }>
                 <ImageBackground
