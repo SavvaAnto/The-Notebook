@@ -26,8 +26,9 @@ export const Category = ({ pack, onAchieve }) => {
 
 const styles = StyleSheet.create({
     title: {
-        marginLeft: 15,
-        fontSize: 16
+        marginLeft: 25,
+        fontSize: 20,
+        fontWeight: '400'
     },
     achieList: {
         paddingVertical: 10,

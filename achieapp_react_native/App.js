@@ -1,17 +1,15 @@
 import React, {useState} from 'react';
-import { Text, StyleSheet, View, FlatList, Alert, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { Navbar } from './src/Navbar'
 import { AddAchievement } from './src/AddAchievement';
 import { Category } from './src/Category';
+import { AddPack } from './src/AddPack';
 
 let sampleData = [
   {
     packId: 0,
     packName: 'Custom achievements',
-    achieList: [
-  //    {id: 1001, title: 'War Bonds', badge: 'https://cdn.vox-cdn.com/thumbor/EW84Q50BbzPbqylwk_zDOMzYABw=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/16022135/A_Consensus_sm.jpg', enabled: false, date: 'Never done'},
-  //    {id: 1002, title: 'Spoils of War', badge: 'https://preview.redd.it/876de1owrip31.jpg?width=960&crop=smart&auto=webp&s=740d3319e1496b4d6269376d1b30a76115a1fa75', enabled: false, date: 'Never done'},
-    ]
+    achieList: []
   },
   {
     packId: 1,
@@ -36,10 +34,10 @@ let sampleData = [
     packId: 3,
     packName: 'Adventures',
     achieList: [
-      {id: 1201, title: 'Office Map Veteran', badge: 'https://cdn.vox-cdn.com/thumbor/Qvk84S694SoWHCqG4NJuwbmtk98=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19430728/lede2.jpg', enabled: false, date: 'Never done'},
-      {id: 1202, title: 'Dust2 Map Veteran', badge: 'https://alk3r.files.wordpress.com/2016/09/odda-norway.jpg', enabled: false, date: 'Never done'},
-      {id: 1203, title: 'Inferno Map Veteran', badge: 'https://travel.usnews.com/dims4/USNEWS/ad5d343/2147483647/resize/255x255%5E%3E/crop/255x255/quality/85/?url=https://travel.usnews.com/images/gettyimages-615356742_1r9rLO8.jpg', enabled: false, date: 'Never done'},  
-      {id: 1204, title: 'Inferno Map Veteran', badge: 'https://www.changegroup.co.uk/sites/uk/assets/Image/Travel%20Money%20Specialist-680px.jpg', enabled: false, date: 'Never done'},  
+      {id: 1301, title: 'Office Map Veteran', badge: 'https://cdn.vox-cdn.com/thumbor/Qvk84S694SoWHCqG4NJuwbmtk98=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19430728/lede2.jpg', enabled: false, date: 'Never done'},
+      {id: 1302, title: 'Dust2 Map Veteran', badge: 'https://alk3r.files.wordpress.com/2016/09/odda-norway.jpg', enabled: false, date: 'Never done'},
+      {id: 1303, title: 'Inferno Map Veteran', badge: 'https://travel.usnews.com/dims4/USNEWS/ad5d343/2147483647/resize/255x255%5E%3E/crop/255x255/quality/85/?url=https://travel.usnews.com/images/gettyimages-615356742_1r9rLO8.jpg', enabled: false, date: 'Never done'},  
+      {id: 1304, title: 'Inferno Map Veteran', badge: 'https://www.changegroup.co.uk/sites/uk/assets/Image/Travel%20Money%20Specialist-680px.jpg', enabled: false, date: 'Never done'},  
     ]
   },
 ]
@@ -75,11 +73,12 @@ export default function App() {
       <Navbar title='AchieApp' />
       <View style={styles.container}>
         <AddAchievement onSubmit={addAchievement}/>
-        <View>
-          <ScrollView style={styles.packs}>
+        <View style={styles.dashboard}>
+          <ScrollView>
             {achies.map(pack => (
               <Category key={pack.packId.toString()} pack={pack} onAchieve={getAchievement} />
             ))}
+            <AddPack />
           </ScrollView>
         </View>
       </View>
@@ -89,10 +88,10 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
+    // paddingHorizontal: 20,
     paddingVertical: 20,
   },
-  packs: {
+  dashboard: {
     height: '84%'
   },
   achieList: {
